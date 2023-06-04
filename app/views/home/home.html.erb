@@ -1,16 +1,39 @@
-require 'json'
+<% @all_results%>
 
-# Read the JSON file
-activities_file = File.read('activities-0.json')
+<table border="1">
+  <tr>
+    <th>
+      Date
+    </th>
+    <th>
+      Distance
+    </th>
+    <th>
+      Time
+    </th>
+    <th>
+      Cadence
+    </th>
+  </tr>
 
-# Parse the JSON data
-activities_data = JSON.parse(activities_file)
-
-# Access the activity IDs
-activity_ids = activities_data['activities'].map { |activity| activity['id'] }
-
-# Iterate over the activity IDs
-activity_ids.each do |activity_id|
-  puts activity_id
-end
-
+  <% @all_results.each do |results|%>
+  <% time = results.fetch("distance").to_f * results.fetch("pace").to_f 
+    steps = results.fetch("steps").to_f %>
+  <tr>
+    <td>
+      <% start_epoch_ms = results.fetch("start_epoch_ms") 
+        start_date = Time.at(start_epoch_ms/1000)%>
+      <%= start_date.strftime('%B %d, %Y')%>
+    </td>
+    <td>
+      <%= results.fetch("distance").to_f.round(2) %>km
+    </td>
+    <td>
+     <%= time.round(2) %> minutes
+    </td>
+    <td>
+      <%= (steps/time).to_i %>
+    </td>
+  </tr>
+ <% end %>
+  </table>

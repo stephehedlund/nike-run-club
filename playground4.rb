@@ -1,10 +1,7 @@
-class HomeController < ApplicationController
-
-def home
-  require "json"
+require "json"
 
 # Array to store the activities data
-@all_results = []
+all_results = []
 
 # Retrieve a list of matching file names
 activity_files = Dir.glob("activities-*.json")
@@ -49,16 +46,12 @@ activity_files.each do |file_name|
     results_hash = {}
 
     results_hash["start_epoch_ms"] = start_epoch_ms
-    results_hash["distance"] = "#{results[:distance]}"
-    results_hash["pace"] = "#{results[:pace]}"
-    results_hash["calories"] = "#{results[:calories]}"
-    results_hash["steps"] = "#{results[:steps]}"
-    @all_results << results_hash
+    results_hash["Distance"] = "#{results[:distance]}"
+    results_hash["Pace"] = "#{results[:pace]}"
+    results_hash["Calories"] = "#{results[:calories]}"
+    results_hash["Steps"] = "#{results[:steps]}"
+    all_results << results_hash
   end
 end
 
-
-  render({:template=> "home/home.html.erb"})
-end
-
-end
+puts all_results.last

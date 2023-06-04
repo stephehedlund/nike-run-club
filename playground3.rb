@@ -1,10 +1,7 @@
-class HomeController < ApplicationController
-
-def home
-  require "json"
+require "json"
 
 # Array to store the activities data
-@all_results = []
+all_activities_data = []
 
 # Retrieve a list of matching file names
 activity_files = Dir.glob("activities-*.json")
@@ -46,19 +43,16 @@ activity_files.each do |file_name|
       end
     end
 
-    results_hash = {}
-
-    results_hash["start_epoch_ms"] = start_epoch_ms
-    results_hash["distance"] = "#{results[:distance]}"
-    results_hash["pace"] = "#{results[:pace]}"
-    results_hash["calories"] = "#{results[:calories]}"
-    results_hash["steps"] = "#{results[:steps]}"
-    @all_results << results_hash
+    puts "Title: " + tags.fetch("com.nike.name").to_s
+    puts "formatted_date: #{formatted_date}"
+    puts "Distance: #{results[:distance]}"
+    puts "Pace: #{results[:pace]}"
+    puts "Time: " + ("#{results[:distance]}".to_f * "#{results[:pace]}".to_f).round(2).to_s
+    puts "Calories: #{results[:calories]}"
+    puts "Steps: #{results[:steps]}"
+    time = ("#{results[:distance]}".to_f * "#{results[:pace]}".to_f)
+    steps = "#{results[:steps]}".to_f
+    puts "Cadence: " + (steps / time).to_s
+    puts
   end
-end
-
-
-  render({:template=> "home/home.html.erb"})
-end
-
 end

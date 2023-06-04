@@ -1,7 +1,7 @@
 require 'json'
 
 # Read the activities JSON file
-activities_file = File.read('activities-1.json')
+activities_file = File.read('activities-0.json')
 
 # Parse the activities JSON data
 activities_data = JSON.parse(activities_file)
@@ -10,8 +10,8 @@ activities_data = JSON.parse(activities_file)
 activities_data['activities'].each do |activity|
   activity_id = activity['id']
   start_epoch_ms = activity['start_epoch_ms']
-  start_date = Time.at(start_epoch_ms/1000)
-  formatted_date = start_date.strftime('%B %d, %Y')
+  # start_date = Time.at(start_epoch_ms/1000)
+  # formatted_date = start_date.strftime('%B %d, %Y')
   summaries = activity ['summaries']
   tags = activity ['tags']
   results = {}
@@ -38,19 +38,17 @@ summaries.each do |summary|
   end
 end
 
+results_hash = {}
 
-  
-  # puts "Title: " + tags.fetch("com.nike.name").to_s
-  puts "formatted_date: #{formatted_date}"
-  puts "Distance: #{results[:distance]}"
-  puts "Pace: #{results[:pace]}"
-  puts "Time: " + ("#{results[:distance]}".to_f * "#{results[:pace]}".to_f).round(2).to_s
-  puts "Calories: #{results[:calories]}"
-  puts "Steps: #{results[:steps]}"
-  time = ("#{results[:distance]}".to_f * "#{results[:pace]}".to_f)
-  steps = "#{results[:steps]}".to_f
-  puts  "Cadence: " + (steps/time).to_s
-  puts
+results_hash["Title"] = tags.fetch("com.nike.name")
+results_hash["start_epoch_ms"] = start_epoch_ms
+results_hash["Distance"] = "#{results[:distance]}"
+results_hash["Pace"] = "#{results[:pace]}"
+results_hash["Calories"] = "#{results[:calories]}"
+results_hash["Steps"] = "#{results[:steps]}"
+
+
+puts results_hash
 
  
   
