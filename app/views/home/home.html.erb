@@ -1,0 +1,16 @@
+require 'json'
+
+# Read the JSON file
+activities_file = File.read('activities-0.json')
+
+# Parse the JSON data
+activities_data = JSON.parse(activities_file)
+
+# Access the activity IDs
+activity_ids = activities_data['activities'].map { |activity| activity['id'] }
+
+# Iterate over the activity IDs
+activity_ids.each do |activity_id|
+  puts activity_id
+end
+
