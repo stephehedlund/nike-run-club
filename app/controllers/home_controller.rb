@@ -43,6 +43,12 @@ activity_files.each do |file_name|
         results[:calories] = value
       when "steps"
         results[:steps] = value
+      when "heart_rate"
+        results[:heart_rate] = value
+      when "ascent"
+        results[:ascent] = value
+      when "descent"
+        results[:descent] = value
       end
     end
 
@@ -53,6 +59,9 @@ activity_files.each do |file_name|
     results_hash["pace"] = "#{results[:pace]}"
     results_hash["calories"] = "#{results[:calories]}"
     results_hash["steps"] = "#{results[:steps]}"
+    results_hash ["heart_rate"] = "#{results[:heart_rate]}"
+    results_hash ["ascent"] = "#{results[:ascent]}"
+    results_hash ["descent"] = "#{results[:descent]}"
     @all_results << results_hash
   end
 end

@@ -14,11 +14,19 @@
     <th>
       Cadence
     </th>
+    <th>
+      BPM
+    </th>
+    <th>
+      Elevation gain
+    </th>
   </tr>
 
   <% @all_results.each do |results|%>
   <% time = results.fetch("distance").to_f * results.fetch("pace").to_f 
-    steps = results.fetch("steps").to_f %>
+    steps = results.fetch("steps").to_f
+    up = results.fetch("ascent")
+    down = results.fetch("descent") %>
   <tr>
     <td>
       <% start_epoch_ms = results.fetch("start_epoch_ms") 
@@ -33,6 +41,12 @@
     </td>
     <td>
       <%= (steps/time).to_i %>
+    </td>
+    <td>
+      <%= results.fetch("heart_rate").to_i %>
+    </td>
+    <td>
+      <%= up.to_i %>
     </td>
   </tr>
  <% end %>
